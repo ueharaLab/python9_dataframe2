@@ -1,4 +1,5 @@
-# DataFrameからの条件抽出
+# 1. DataFrameからの条件抽出
+DataFrameから条件を満たすデータ（行）を取り出す
 
 
 ```python
@@ -134,7 +135,15 @@ profile_df
 
 
 
-### 構文：dataframe名[  dataframe名['columns名'] 抽出条件 ]  
+### 構文：
+
+---
+```python
+dataframe名[  dataframe名['columns名'] 抽出条件 ]  
+```
+---
+
+
 **例1. weight > 60 のデータを抽出**   
 
 
@@ -320,14 +329,16 @@ profile_df[profile_df['male/female']=='male']
 
 
 
-### 複合条件抽出  
-### 構文
+### 複合条件抽出の構文
+
 ---  
-  ### 1) and： dataframe名[ (dataframe名['columns名'] 抽出条件) & (dataframe名['columns名'] 抽出条件) ]  )  
-  ### 2) or :  dataframe名[ (dataframe名['columns名'] 抽出条件) | (dataframe名['columns名'] 抽出条件) ]  ) 
+```python
+   1) and： dataframe名[ (dataframe名['columns名'] 抽出条件) & (dataframe名['columns名'] 抽出条件) ]  )  
+   2) or :  dataframe名[ (dataframe名['columns名'] 抽出条件) | (dataframe名['columns名'] 抽出条件) ]  ) 
+```
 ---
 
-**例4. height > 180 and weight > 60 のデータを抽出**   
+**例3. height > 180 and weight > 60 のデータを抽出**   
 
 
 ```python
@@ -413,7 +424,7 @@ profile_df[(profile_df['height']>180) & (profile_df['weight']>60)]
 
 
 
-例5. male または height > 180
+**例4. male または height > 180**
 
 
 ```python
@@ -512,10 +523,11 @@ profile_df[(profile_df['male/female']=='male') | (profile_df['height']>180)]
 
 
 
-# 演算処理
-## 1. 合計と平均の計算
-### 構文    
+# 2.演算処理
+## 1) 合計と平均の計算
+### 構文  
 
+---
 ```python
 1) 行ごとの合計（列方向の合計) 
     :  dataframe名.sum(axis=1)    
@@ -526,13 +538,136 @@ profile_df[(profile_df['male/female']=='male') | (profile_df['height']>180)]
 4)列ごとの合計（行方向の合計)
     : dataframe名.mean(axis=0)
 ```
+---
 
-![img](axis.jpg)
+
+```python
+profile_df
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>blood type</th>
+      <th>nation</th>
+      <th>age</th>
+      <th>occupation</th>
+      <th>male/female</th>
+      <th>hobby</th>
+      <th>married</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>U1</th>
+      <td>Lucy</td>
+      <td>160</td>
+      <td>52</td>
+      <td>A</td>
+      <td>USA</td>
+      <td>20</td>
+      <td>student</td>
+      <td>female</td>
+      <td>tennis</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>E1</th>
+      <td>Bob</td>
+      <td>180</td>
+      <td>52</td>
+      <td>O</td>
+      <td>England</td>
+      <td>30</td>
+      <td>dentist</td>
+      <td>male</td>
+      <td>game</td>
+      <td>single</td>
+    </tr>
+    <tr>
+      <th>J1</th>
+      <td>Shohei</td>
+      <td>193</td>
+      <td>80</td>
+      <td>AB</td>
+      <td>Japan</td>
+      <td>30</td>
+      <td>MLB</td>
+      <td>male</td>
+      <td>baseball</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>J2</th>
+      <td>Mami</td>
+      <td>180</td>
+      <td>62</td>
+      <td>B</td>
+      <td>Japan</td>
+      <td>28</td>
+      <td>wife</td>
+      <td>female</td>
+      <td>baseball</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>FR</th>
+      <td>Frank</td>
+      <td>190</td>
+      <td>80</td>
+      <td>O</td>
+      <td>Germany</td>
+      <td>15</td>
+      <td>student</td>
+      <td>male</td>
+      <td>ski</td>
+      <td>single</td>
+    </tr>
+    <tr>
+      <th>NA</th>
+      <td>Naomi</td>
+      <td>185</td>
+      <td>70</td>
+      <td>A</td>
+      <td>Japan</td>
+      <td>30</td>
+      <td>tennis player</td>
+      <td>fimale</td>
+      <td>game</td>
+      <td>marreid</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 例：profile_df について1)~5)を計算する
 
 
 ```python
+# ageは文字列型なので合計計算の対象にならない
 profile_df.sum(axis=1,numeric_only=True)
 ```
 
@@ -596,8 +731,131 @@ profile_df.mean(axis=0,numeric_only=True)
 
 
 
-## 2. 条件抽出と演算の複合
+## 2) 条件抽出と演算の複合
 例1. heightの平均
+
+
+```python
+profile_df
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>blood type</th>
+      <th>nation</th>
+      <th>age</th>
+      <th>occupation</th>
+      <th>male/female</th>
+      <th>hobby</th>
+      <th>married</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>U1</th>
+      <td>Lucy</td>
+      <td>160</td>
+      <td>52</td>
+      <td>A</td>
+      <td>USA</td>
+      <td>20</td>
+      <td>student</td>
+      <td>female</td>
+      <td>tennis</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>E1</th>
+      <td>Bob</td>
+      <td>180</td>
+      <td>52</td>
+      <td>O</td>
+      <td>England</td>
+      <td>30</td>
+      <td>dentist</td>
+      <td>male</td>
+      <td>game</td>
+      <td>single</td>
+    </tr>
+    <tr>
+      <th>J1</th>
+      <td>Shohei</td>
+      <td>193</td>
+      <td>80</td>
+      <td>AB</td>
+      <td>Japan</td>
+      <td>30</td>
+      <td>MLB</td>
+      <td>male</td>
+      <td>baseball</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>J2</th>
+      <td>Mami</td>
+      <td>180</td>
+      <td>62</td>
+      <td>B</td>
+      <td>Japan</td>
+      <td>28</td>
+      <td>wife</td>
+      <td>female</td>
+      <td>baseball</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>FR</th>
+      <td>Frank</td>
+      <td>190</td>
+      <td>80</td>
+      <td>O</td>
+      <td>Germany</td>
+      <td>15</td>
+      <td>student</td>
+      <td>male</td>
+      <td>ski</td>
+      <td>single</td>
+    </tr>
+    <tr>
+      <th>NA</th>
+      <td>Naomi</td>
+      <td>185</td>
+      <td>70</td>
+      <td>A</td>
+      <td>Japan</td>
+      <td>30</td>
+      <td>tennis player</td>
+      <td>fimale</td>
+      <td>game</td>
+      <td>marreid</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 
 ```python
@@ -627,7 +885,7 @@ profile_df[profile_df['hobby']=='baseball']['height'].mean(axis=0)
 
 #### 最後の例で、もしhobby毎にすべて平均を計算する場合、hobby毎に１つ１つプログラムを書く必要がある。hobbyについて、取りうる値毎にすべての平均を一度に計算する方法はないだろうか
 
-# グルーピング
+# 3. グルーピング
 指定したcolumnの取りうる値毎にグループ化して、小計、平均などを計算する  
 ### 構文  
 
@@ -637,6 +895,129 @@ profile_df[profile_df['hobby']=='baseball']['height'].mean(axis=0)
 ```
 --- 
 例1. profile_dfをhobby毎に合計をとる
+
+
+```python
+profile_df
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>blood type</th>
+      <th>nation</th>
+      <th>age</th>
+      <th>occupation</th>
+      <th>male/female</th>
+      <th>hobby</th>
+      <th>married</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>U1</th>
+      <td>Lucy</td>
+      <td>160</td>
+      <td>52</td>
+      <td>A</td>
+      <td>USA</td>
+      <td>20</td>
+      <td>student</td>
+      <td>female</td>
+      <td>tennis</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>E1</th>
+      <td>Bob</td>
+      <td>180</td>
+      <td>52</td>
+      <td>O</td>
+      <td>England</td>
+      <td>30</td>
+      <td>dentist</td>
+      <td>male</td>
+      <td>game</td>
+      <td>single</td>
+    </tr>
+    <tr>
+      <th>J1</th>
+      <td>Shohei</td>
+      <td>193</td>
+      <td>80</td>
+      <td>AB</td>
+      <td>Japan</td>
+      <td>30</td>
+      <td>MLB</td>
+      <td>male</td>
+      <td>baseball</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>J2</th>
+      <td>Mami</td>
+      <td>180</td>
+      <td>62</td>
+      <td>B</td>
+      <td>Japan</td>
+      <td>28</td>
+      <td>wife</td>
+      <td>female</td>
+      <td>baseball</td>
+      <td>married</td>
+    </tr>
+    <tr>
+      <th>FR</th>
+      <td>Frank</td>
+      <td>190</td>
+      <td>80</td>
+      <td>O</td>
+      <td>Germany</td>
+      <td>15</td>
+      <td>student</td>
+      <td>male</td>
+      <td>ski</td>
+      <td>single</td>
+    </tr>
+    <tr>
+      <th>NA</th>
+      <td>Naomi</td>
+      <td>185</td>
+      <td>70</td>
+      <td>A</td>
+      <td>Japan</td>
+      <td>30</td>
+      <td>tennis player</td>
+      <td>fimale</td>
+      <td>game</td>
+      <td>marreid</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 
 ```python
@@ -765,7 +1146,7 @@ profile_df.groupby('hobby').mean(numeric_only=True)
 
 
 
-# データの更新
+# 4. データの更新
 
 ### 構文： 
 
@@ -823,7 +1204,7 @@ print(profile_df)
 
 
 
-# 行毎繰り返し処理
+# 5. 行毎繰り返し処理
 ### 構文
 
 --- 
